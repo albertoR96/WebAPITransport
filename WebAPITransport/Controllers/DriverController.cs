@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebAPITransport.Controllers
@@ -21,6 +20,28 @@ namespace WebAPITransport.Controllers
             return await db.Drivers.ToListAsync();
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<model.Driver>> Get(int id)
+        {
+            var driver = await db.Drivers.FirstOrDefaultAsync(x => x.ID == id);
+            if (driver == null)
+            {
+                return NotFound();
+            }
+            return driver;
+        }
+
+        [HttpGet("{name}")]
+        public async Task<ActionResult<model.Driver>> Get(string name)
+        {
+            var driver = await db.Drivers.FirstOrDefaultAsync(x => x.Name.Contains(name));
+            if (driver == null)
+            {
+                return NotFound();
+            }
+            return driver;
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post(model.Driver driver)
         {
@@ -29,7 +50,7 @@ namespace WebAPITransport.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("{id:int}")]
         public async Task<ActionResult> Put(model.Driver driver, int id)
         {
             if (driver.ID != id)
@@ -41,7 +62,7 @@ namespace WebAPITransport.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
             var exists = await db.Drivers.AnyAsync(x => x.ID == id);

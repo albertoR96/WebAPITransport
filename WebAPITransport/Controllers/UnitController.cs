@@ -21,6 +21,28 @@ namespace WebAPITransport.Controllers
             return await db.Units.ToListAsync();
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<model.Unit>> Get(int id)
+        {
+            var unit = await db.Units.FirstOrDefaultAsync(x => x.ID == id);
+            if (unit == null)
+            {
+                return NotFound();
+            }
+            return unit;
+        }
+
+        [HttpGet("{name}")]
+        public async Task<ActionResult<model.Unit>> Get(string name)
+        {
+            var unit = await db.Units.FirstOrDefaultAsync(x => x.Name.Contains(name));
+            if (unit == null)
+            {
+                return NotFound();
+            }
+            return unit;
+        }
+
         [HttpGet("{customer:int}")]
         public async Task<List<model.Unit>> GetByCustomer(int customerID)
         {

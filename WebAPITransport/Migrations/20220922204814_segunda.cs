@@ -5,7 +5,7 @@
 namespace WebAPITransport.Migrations
 {
     /// <inheritdoc />
-    public partial class primera : Migration
+    public partial class segunda : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

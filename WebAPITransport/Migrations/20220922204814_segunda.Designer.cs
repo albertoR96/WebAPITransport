@@ -11,8 +11,8 @@ using WebAPITransport;
 namespace WebAPITransport.Migrations
 {
     [DbContext(typeof(ApplicationDB))]
-    [Migration("20220917024813_primera")]
-    partial class primera
+    [Migration("20220922204814_segunda")]
+    partial class segunda
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
